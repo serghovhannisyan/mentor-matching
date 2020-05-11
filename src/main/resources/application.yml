@@ -1,0 +1,17 @@
+matching:
+  age:
+    diff: 5
+    percentage: 30
+  division:
+    percentage: 30
+  timezone:
+    percentage: 40
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+logging:
+  level.: INFO

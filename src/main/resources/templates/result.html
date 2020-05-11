@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>MentorcliQ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center align-items-center mt-2">
+        <!--display error if any-->
+        <div class="alert alert-danger" role="alert" th:if="${!status}">
+            <strong>Error:</strong>
+            <span th:text="${message}"></span>
+            <a href="/" th:href="@{/}" class="btn btn-large btn-success">Back</a>
+        </div>
+    </div>
+    <div th:if="${status}">
+        <div class="row justify-content-center align-items-center">
+            <a href="/" th:href="@{/}" class="btn btn-large btn-success">Upload again</a>
+        </div>
+        <br/>
+        <h2 class="text-center">The set(s) with the highest result</h2>
+        <div class="row justify-content-center align-items-center"
+             th:each="combination : ${response.getCombinations()}">
+            <div class="card mt-2" style="width: 60rem;">
+                <div class="card-header text-center bg-dark text-white"
+                     th:text="${'The highest average match score is​: ' + combination.getAverageMatching() + '%'}"></div>
+                <ul class="list-group" th:each="pair, i : ${combination.getPairs()}">
+                    <li class="list-group-item"><b th:text="${pair.getFirstEmpName()}"></b> will be matched with <b
+                            th:text="${pair.getSecondEmpName()}"></b> - <i
+                            th:text="${pair.getMatchingPercentage()}"></i>%
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
