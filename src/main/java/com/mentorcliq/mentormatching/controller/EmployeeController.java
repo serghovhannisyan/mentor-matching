@@ -35,7 +35,7 @@ public class EmployeeController {
             model.addAttribute("message", "Please select a CSV file to upload.");
             model.addAttribute("status", false);
         } else {
-            EmployeeCSVImportResponseDto response = employeeService.readFromCSV(file);
+            EmployeeCSVImportResponseDto response = employeeService.upload(file);
 
             model.addAttribute("response", response);
             model.addAttribute("status", true);

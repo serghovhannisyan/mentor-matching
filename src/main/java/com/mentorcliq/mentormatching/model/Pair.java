@@ -1,38 +1,34 @@
 package com.mentorcliq.mentormatching.model;
 
-import com.mentorcliq.mentormatching.matcher.EmployeeMatchingStrategy;
-
-import java.util.List;
-
 /**
  * Class for keeping two employees together as a pair
  * And matching percentage between them
  */
-public class Pair {
+public class Pair<T extends Employee> {
 
-    private final Employee first;
-    private final Employee second;
-    private int matchingPercentage;
+    private final T first;
+    private final T second;
+    private Match match;
 
-    public Pair(Employee first, Employee second) {
+    public Pair(T first, T second) {
         this.first = first;
         this.second = second;
     }
 
-    public Employee getFirst() {
+    public T getFirst() {
         return first;
     }
 
-    public Employee getSecond() {
+    public T getSecond() {
         return second;
     }
 
-    public int getMatchingPercentage() {
-        return matchingPercentage;
+    public Match getMatch() {
+        return match;
     }
 
-    public void calculateMatch(List<EmployeeMatchingStrategy> strategies) {
-        strategies.forEach(strategy -> matchingPercentage += strategy.calculateMatch(first, second));
+    public void setMatch(Match match) {
+        this.match = match;
     }
 
     @Override
@@ -40,7 +36,7 @@ public class Pair {
         return "Pair{" +
                 "first=" + first +
                 ", second=" + second +
-                ", matchingPercentage=" + matchingPercentage +
+                ", match=" + match +
                 '}';
     }
 }

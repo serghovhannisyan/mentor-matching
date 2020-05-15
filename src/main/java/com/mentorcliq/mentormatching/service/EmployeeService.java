@@ -10,5 +10,5 @@ public interface EmployeeService {
      * @param file
      * @return response containing highest set(s)
      */
-    EmployeeCSVImportResponseDto readFromCSV(MultipartFile file);
+    EmployeeCSVImportResponseDto upload(MultipartFile file);
 }

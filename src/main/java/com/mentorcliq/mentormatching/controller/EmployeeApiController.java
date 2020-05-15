@@ -30,6 +30,6 @@ public class EmployeeApiController {
             throw new InvalidFileException("File is empty");
         }
 
-        return employeeService.readFromCSV(file);
+        return employeeService.upload(file);
     }
 }

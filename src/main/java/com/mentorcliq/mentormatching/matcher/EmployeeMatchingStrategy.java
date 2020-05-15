@@ -1,14 +1,9 @@
 package com.mentorcliq.mentormatching.matcher;
 
 import com.mentorcliq.mentormatching.model.Employee;
+import com.mentorcliq.mentormatching.model.Pair;
 
-public interface EmployeeMatchingStrategy {
+public interface EmployeeMatchingStrategy<T, E extends Employee> {
 
-    /**
-     * Calculates match between two employees based on matching criteria
-     * @param e1 first employee
-     * @param e2 second employee
-     * @return calculated value
-     */
-    int calculateMatch(Employee e1, Employee e2);
+    T calculateMatch(Pair<E> pair);
 }

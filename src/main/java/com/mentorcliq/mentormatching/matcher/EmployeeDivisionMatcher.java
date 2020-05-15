@@ -1,11 +1,12 @@
 package com.mentorcliq.mentormatching.matcher;
 
 import com.mentorcliq.mentormatching.model.Employee;
+import com.mentorcliq.mentormatching.model.Pair;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmployeeDivisionMatcher implements EmployeeMatchingStrategy {
+public class EmployeeDivisionMatcher<T extends Employee> implements EmployeeMatchingStrategy<Integer, T> {
 
     private final Integer divisionPercentage;
 
@@ -13,14 +14,10 @@ public class EmployeeDivisionMatcher implements EmployeeMatchingStrategy {
         this.divisionPercentage = divisionPercentage;
     }
 
-    /**
-     * Calculates match based on division
-     * @param e1 first employee
-     * @param e2 second employee
-     * @return match value
-     */
     @Override
-    public int calculateMatch(Employee e1, Employee e2) {
+    public Integer calculateMatch(Pair<T> pair) {
+        Employee e1 = pair.getFirst();
+        Employee e2 = pair.getSecond();
         return e1.getDivision().equals(e2.getDivision()) ? divisionPercentage : 0;
     }
 }

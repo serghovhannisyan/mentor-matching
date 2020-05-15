@@ -7,25 +7,33 @@ import java.util.List;
  * Class for keeping reference of possible pairs within one set
  * And calculation of average matching for all nested pairs
  */
-public class Combination implements Comparable<Combination> {
+public class Combination<T extends Employee> implements Comparable<Combination<T>> {
 
     private Double averageMatching;
-    private final List<Pair> pairs;
+    private final List<Pair<T>> pairs;
+    private boolean matched;
 
-    public Combination(List<Pair> pairs) {
+    public Combination(List<Pair<T>> pairs) {
         this.pairs = new ArrayList<>(pairs);
         calculateAverage();
     }
 
     private void calculateAverage() {
-        pairs.stream().mapToInt(Pair::getMatchingPercentage).average().ifPresent(value -> averageMatching = value);
+        if (pairs.stream().filter(p -> p.getMatch().isMatched()).count() == pairs.size()) {
+            matched = true;
+        }
+        pairs.stream().mapToInt(value -> value.getMatch().getMatchingPercentage()).average().ifPresent(value -> averageMatching = value);
     }
 
     public Double getAverageMatching() {
         return averageMatching;
     }
 
-    public List<Pair> getPairs() {
+    public boolean isMatched() {
+        return matched;
+    }
+
+    public List<Pair<T>> getPairs() {
         return pairs;
     }
 

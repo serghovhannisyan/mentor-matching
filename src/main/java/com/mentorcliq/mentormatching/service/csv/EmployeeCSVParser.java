@@ -1,4 +1,4 @@
-package com.mentorcliq.mentormatching.service;
+package com.mentorcliq.mentormatching.service.csv;
 
 import com.mentorcliq.mentormatching.exception.InvalidFileException;
 import com.mentorcliq.mentormatching.model.Employee;
@@ -16,7 +16,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 @Service
-public class EmployeeCSVParser implements CSVParser<Employee> {
+public class EmployeeCSVParser implements CSVParser {
 
     private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
@@ -28,15 +28,15 @@ public class EmployeeCSVParser implements CSVParser<Employee> {
      * @throws InvalidFileException
      */
     @Override
-    public List<Employee> parse(InputStream inputStream) {
+    public <T extends Employee> List<T> parse(InputStream inputStream, Class<T> type) {
         try (Reader reader = new BufferedReader(new InputStreamReader(inputStream))) {
 
-            CsvToBean<Employee> csvToBean = new CsvToBeanBuilder<Employee>(reader)
-                    .withType(Employee.class)
+            CsvToBean<T> csvToBean = new CsvToBeanBuilder<T>(reader)
+                    .withType(type)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
 
-            List<Employee> employees = csvToBean.parse();
+            List<T> employees = csvToBean.parse();
             log.info("CSV file successfully parsed. {}", employees);
 
             return employees;
